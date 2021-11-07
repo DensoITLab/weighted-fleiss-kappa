@@ -163,8 +163,7 @@ public class WeightedFleissKappa<K, L>
     }
     
     /**
-     * 全ユーザについて各カテゴリについて出現した頻度の分布を返す
-     * @return
+     * Returns the frequency of categories summed over all annotators.
      */
     public Map<L, Double> getCofreq()
     {

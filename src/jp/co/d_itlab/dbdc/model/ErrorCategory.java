@@ -43,6 +43,7 @@ public class ErrorCategory<L> extends ArrayList<L>
         try
         {
             File f = new File(path);
+            // Can specify the encoding here if JDK13 is used.
             BufferedReader reader = new BufferedReader(new FileReader(f));
             String line;
             while ((line = reader.readLine()) != null)

@@ -489,12 +489,15 @@ public class IAATool  extends CliTool
                 }
             }
             
-            Path savePath = Paths.get(outputPath, filename + ".xlsx");
-            FileOutputStream out = new FileOutputStream(new File(savePath.toAbsolutePath().toString()));
-            wb.write(out);
-            out.close();
-            wb.close();
-            FootPrint.info("Merged data output to {0}. (File: {1})", outputPath, savePath.toAbsolutePath().toString());
+            if (outputPath != null)
+            {
+                Path savePath = Paths.get(outputPath, filename + ".xlsx");
+                FileOutputStream out = new FileOutputStream(new File(savePath.toAbsolutePath().toString()));
+                wb.write(out);
+                out.close();
+                wb.close();
+                FootPrint.info("Merged data output to {0}. (File: {1})", outputPath, savePath.toAbsolutePath().toString());
+            }
         }
         catch (Exception e)
         {
@@ -615,8 +618,8 @@ public class IAATool  extends CliTool
             WeightedKappa<String, String> wk = new WeightedKappa<>(annotations);
             double agreement = wk.getAgreement();
             double kappa  = wk.getKappa();       
-            FootPrint.show("Agreement: " + agreement);
-            FootPrint.show("Weighted Kappa: " + kappa);
+            FootPrint.show("Agreement: " + DoubleFormat.round(agreement, -3));
+            FootPrint.show("Weighted Kappa: " + DoubleFormat.round(kappa, -3));
             
             printFreq(wk, annotator1);
             printFreq(wk, annotator2);

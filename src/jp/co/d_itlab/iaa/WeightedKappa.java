@@ -114,11 +114,11 @@ public class WeightedKappa<K, L>
     
     private void caculate()
     {
-        // 一致率の規格化用
+        // used for normalizing agreement
         Map<K, Double> agreements = new HashMap<>();
         Map<K, Double> norms = new HashMap<>();
         
-        // デバッグ用カウンター
+        // counter for debugging
         int numInconsistent = 0;
         
         // calculate IAA
