@@ -32,10 +32,25 @@ public class AnnotationDataset<L>
     private Map<String, Map<String, ErrorCategoryAnnotatedUtterance<L>>> annotations;
     private List<String> uids;
     private ErrorCategory<L> category;
+    private List<Double> weights;
     
+    /**
+     * Weights are put on each labels equally.
+     */
     public AnnotationDataset(ErrorCategory<L> category)
     {
+        this(category, null);
+    }
+    
+    /**
+     *  Weights are put on labels in accord with given weight design.
+     * @param category
+     * @param weights
+     */
+    public AnnotationDataset(ErrorCategory<L> category, List<Double> weights)
+    {
         this.category = category;
+        this.weights = weights;
         annotations = new HashMap<>();
         uids = new ArrayList<>();
     }
@@ -128,6 +143,7 @@ public class AnnotationDataset<L>
         return ret;
     }
     
+   
     public Map<String, AnnotationMatrix<String, L>> getAnnotationMatrices()
     {
         Map<String, AnnotationMatrix<String, L>> ret = new HashMap<>();
@@ -138,10 +154,24 @@ public class AnnotationDataset<L>
             Map<String, ErrorCategoryAnnotatedUtterance<L>> labels = annotations.get(aid);
             for (String uid : labels.keySet())
             {
-                double weight = 1.0 / labels.get(uid).getBdLabels().size();
-                for (L c : labels.get(uid).getBdLabels())
+                if (weights == null)
                 {
-                    m.add(uid, c, weight);
+                    // put weights equally on each labels
+                    double weight = 1.0 / labels.get(uid).getBdLabels().size();
+                    for (L c : labels.get(uid).getBdLabels())
+                    {
+                        m.add(uid, c, weight);
+                    }
+                }
+                else
+                {
+                    int numLabels = labels.get(uid).getBdLabels().size();
+                    for (int i = 0; i < numLabels; i++)
+                    {
+                        L c = labels.get(uid).getBdLabels().get(i);
+                        double weight = weights.get(i);
+                        m.add(uid, c, weight);
+                    }
                 }
                 
                 Map<L, Double> row = m.row(uid);

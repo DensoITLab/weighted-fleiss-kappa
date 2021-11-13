@@ -37,7 +37,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import jp.co.d_itlab.dbdc.excel.BreakDownAnnotatedUtterance;
-import jp.co.d_itlab.dbdc.excel.BreakdownCategoryAnnotation;
 import jp.co.d_itlab.dbdc.excel.ErrorCategoryAnnotatedUtterance;
 import jp.co.d_itlab.dbdc.excel.Field;
 import jp.co.d_itlab.dbdc.excel.FieldName;
@@ -100,8 +99,15 @@ public class IAATool  extends CliTool
     @Option(names = {OPT_FILTER_DIALOGUE_SYSTEM}, required = false, description="dislogue system ID")
     private static String filterDialogueSystemId;
     
+    public final static String OPT_DIC_PATH = "-dic";
+    @Option(names = {OPT_DIC_PATH}, required = false, description="path to dictionaries", defaultValue="./res/dic")
+    private static String dicPath;
+    
+    public final static String OPT_LANGUAGE = "-l";
+    @Option(names = {OPT_LANGUAGE}, required = false, description="language (ja: Japanese, en: English)", defaultValue="ja")
+    private static String locale;
+    
     private NumberFormat nf = NumberFormat.getInstance();
-
     
     // Annotation data
     private List<String> targetAnnotatorList;
@@ -151,7 +157,16 @@ public class IAATool  extends CliTool
         {
             FootPrint.show("Loading error category dictionaries...");
             errorCategoryMap = new HashMap<>();
-            String templateDicPath = "./res/dic/%s.dic";
+            String templateDicPath = dicPath;
+            FootPrint.debug("user.dir = " + System.getProperty("user.dir"));
+            if ("ja".equals(locale))
+            {
+                templateDicPath += "/%s_ja.dic";
+            }
+            else
+            {
+                templateDicPath += "/%s.dic";
+            }
             for (String ecName : ERROR_CATEGORY_NAMES)
             {
                 errorCategoryMap.put(ecName, new ErrorCategory(ecName, String.format(templateDicPath, ecName)));
@@ -326,9 +341,11 @@ public class IAATool  extends CliTool
         {  
             switch(cell.getCellType())
             {
-                case Cell.CELL_TYPE_STRING:
+                //case Cell.CELL_TYPE_STRING:
+                case STRING:
                     return cell.getStringCellValue();
-                case Cell.CELL_TYPE_NUMERIC:
+                //case Cell.CELL_TYPE_NUMERIC:
+                case NUMERIC:
                     return nf.format(cell.getNumericCellValue());
             }
         }
@@ -342,16 +359,19 @@ public class IAATool  extends CliTool
         {  
             switch(cell.getCellType())
             {
-                case Cell.CELL_TYPE_STRING:
+                case STRING:
+                // case Cell.CELL_TYPE_STRING:
                     if (cell.getStringCellValue().contains("/"))
                     {
+                        
                         return DateUtil.parseYYYYMMDDDate(cell.getStringCellValue());
                     }
                     else
                     {
                         return DateTimeFormat.parseDDMMYYYYHHMMSS(cell.getStringCellValue());
                     }
-                case Cell.CELL_TYPE_NUMERIC:
+                //case Cell.CELL_TYPE_NUMERIC:
+                case NUMERIC:
                     return cell.getDateCellValue();
             }
         }
@@ -382,7 +402,7 @@ public class IAATool  extends CliTool
             {   
                 ++nCol;
                 cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
-                cell.setCellType(Cell.CELL_TYPE_STRING);
+                //cell.setCellType(Cell.CELL_TYPE_STRING);
                 cell.setCellValue(fieldName);
             }
             for (String aid : annotators)
@@ -391,18 +411,18 @@ public class IAATool  extends CliTool
                 {  
                     ++nCol;
                     cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
-                    cell.setCellType(Cell.CELL_TYPE_STRING);
+                    //cell.setCellType(Cell.CELL_TYPE_STRING);
                     cell.setCellValue(fieldName);  
                 }
             }
             
             ++nCol;
             cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
-            cell.setCellType(Cell.CELL_TYPE_STRING);
+            //cell.setCellType(Cell.CELL_TYPE_STRING);
             cell.setCellValue(FieldName.BreakdownCategory.getName());  
             ++nCol;
             cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
-            cell.setCellType(Cell.CELL_TYPE_STRING);
+            //cell.setCellType(Cell.CELL_TYPE_STRING);
             cell.setCellValue(FieldName.Remark.getName()); 
             
             // write body
@@ -423,14 +443,14 @@ public class IAATool  extends CliTool
                     dbTurn.numXs = (int)bdau.getNumX();
                     nCol = 0;
                     cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
-                    cell.setCellType(Cell.CELL_TYPE_STRING);
+                    //cell.setCellType(Cell.CELL_TYPE_STRING);
                     cell.setCellValue((String)u.getValue(FieldName.FileName));
                     for (String fieldName : BreakDownAnnotatedUtterance.getFieldNames())
                     {
                         ++nCol;
                         cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
                         Field<?> field = bdau.getField(fieldName);
-                        cell.setCellType(field.gettype().getEcelCellType());
+                        //cell.setCellType(field.gettype().getEcelCellType());
                         switch (field.gettype())
                         {
                             case String:
@@ -467,7 +487,7 @@ public class IAATool  extends CliTool
                                 ++nCol;
                                 cell = (cell = row.getCell(nCol)) == null ? row.createCell(nCol) : cell;
                                 Field<?> field = ecau.getField(fieldName);
-                                cell.setCellType(field.gettype().getEcelCellType());
+                                //cell.setCellType(field.gettype().getEcelCellType());
                                 switch (field.gettype())
                                 {
                                     case String:

@@ -12,29 +12,10 @@
 ///
 package jp.co.d_itlab.dbdc.excel;
 
-import org.apache.poi.ss.usermodel.Cell;
-
 public enum FieldType
 {
     String,
     Integer,
     Double,
     Date;
-    
-    public int getEcelCellType()
-    {
-        switch (this)
-        {
-            case String:
-                return Cell.CELL_TYPE_STRING;
-            case Integer:
-                return Cell.CELL_TYPE_NUMERIC;
-            case Double:
-                return Cell.CELL_TYPE_NUMERIC;
-            case Date:
-                return Cell.CELL_TYPE_STRING;
-            default:
-                return Cell.CELL_TYPE_STRING;
-        }
-    }
 }

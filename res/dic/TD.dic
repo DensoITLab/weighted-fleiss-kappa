@@ -1,0 +1,18 @@
+# TD v1.0
+Utterance--Syntactic error
+Utterance--Semantic error
+Utterance--Uninterpretable
+Response--Excess/lack of information
+Response--Non-understanding
+Response--No relevance
+Response--Unclear intention
+Response--Misunderstanding
+Context--Excess/lack of proposition
+Context--Contradiction
+Context--Non-relevant topic
+Context--Unclear relation
+Context--Topic switch error
+Environment--Lack of common ground
+Environment--Lack of common sense
+Environment--Lack of sociality
+
