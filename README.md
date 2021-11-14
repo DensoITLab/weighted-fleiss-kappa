@@ -1,9 +1,8 @@
 # weighted-fleiss-kappa
-Library for estimating inter-annotator agreements of dialogue breakdown error category labeling by weighted Fleiss' kappa coefficient. See the reference for the task description and the defnition of weighted Fleiss' kappa coefficient.
+This ia a library for estimating inter-annotator agreements by weighted Fleiss' kappa coefficient. See the reference for the defnition of weighted Fleiss' kappa coefficient.
 
 # Usage
-
-For estimating inter-annotator agreements, execute the following from the command line:
+For evaluating inter-annotator agreements, a following command line tool is provided:
 
 >`java -Dfile.encoding=UTF-8 -cp [CLASSPATH] jp.co.d_itlab.dbdc.tool.IAATool -s maa -dic [DIC_DIR] -c INT -a [ANNOTATORS] -i [INPUT_DIR] (-l [LOCALE])`
 
@@ -16,20 +15,19 @@ Option Description:
 - i - path to the annotated data
 - l - specifies the language of data. (ja: Japanese(default), en: English)
 
-Launch setting samples are shown in the batch files under the "[sample](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/sample)" directory, where the dependent libraries are assumed to be placed in "picocli", "poi", "log4j" directories under "jar" directory, respectively.
+Launch setting samples are shown in the batch files under the "[sample](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/sample)" directory. For executing those batch files,  the dependent libraries should be placed in "picocli", "poi", "log4j" directories under "jar" directory, respectively.
 
 ## Directory Layout of annotated files
-
-The annotation of error category for dialogue breakdowns is assumed to be worked using the excel files, placed in the following directory layout:
+The annotation of error category is assumed to be worked using excel files. (Like a template in "[res/excel](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/res/excel)" directory.) The annotated files should be distributed in the following directory layout:
 
 <pre>
 [data]   
  │
  └─ [annotator-id]
  │     │
- │     └─ [trial]
+ │     └─ [trial-d]
  │     │     │
- │     │     │─ [trial_dialogue-system-id].xlsm
+ │     │     │─ [trial-id_dialogue-system-id].xlsm
  │     │     └─ ...
  │     └─ ...
  └─ ...
@@ -37,11 +35,11 @@ The annotation of error category for dialogue breakdowns is assumed to be worked
 
 See examples in the "[sample/data](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/sample/data)" directory.
 
-The template of those excel files is placed in "[res/excel](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/res/excel)" directory".
+<!--The template of those excel files is placed in "[res/excel](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/res/excel)" directory".-->
 
 # Download
 
-The complied JAR file: [iaa-1.0.0.jar](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/jar/iaa-1.0.0.jar)
+The complied JAR file is provided: [iaa-1.0.0.jar](https://github.com/htsukahara/weighted-fleiss-kappa/tree/main/jar)
 
 # Requirements
 1. JRE v1.8 or above version installed
@@ -71,8 +69,8 @@ The complied JAR file: [iaa-1.0.0.jar](https://github.com/htsukahara/weighted-fl
         - log4j-core-2.14.1.jar
 
 # Reference
-Ryuichiro Higashinaka, Masahiro Araki, Hiroshi Tsukahara and Masahiro Mizukami (2021),  [*Integrated taxonomy of errors in chat-oriented dialogue systems*](https://aclanthology.org/2021.sigdial-1.10/), in Proceedings of the 22nd Annual Meeting of the Special Interest Group on Discourse and Dialogue, p.89-98.
-
+1. Ryuichiro Higashinaka, Masahiro Araki, Hiroshi Tsukahara and Masahiro Mizukami (2021),  [*Integrated taxonomy of errors in chat-oriented dialogue systems*](https://aclanthology.org/2021.sigdial-1.10/), in Proceedings of the 22nd Annual Meeting of the Special Interest Group on Discourse and Dialogue, p.89-98.
+1. The annotation manuals (in Japanese and English) - [Integrated taxonomy of errors in chat-oriented dialogue systems](https://github.com/ryuichiro-higashinaka/taxonomy-of-errors)
 
 # License
 ©2021 DENSO IT Laboratory, Inc., All rights reserved. Redistribution or public display not permitted without written permission from DENSO IT Laboratory, Inc.

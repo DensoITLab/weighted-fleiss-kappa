@@ -4,7 +4,7 @@ set CLASSPATH="../jar/iaa-1.0.0.jar;../jar/picocli/picocli-4.6.2.jar;../jar/poi/
 set DIC_DIR="../res/dic"
 set COMMAND=all-iaa
 set CATEGORY=INT
-set ANNOTATORS="W1,W2,W3,W4,W5"
+set ANNOTATORS="W1,W2,W3"
 set INPUT_DIR="data"
 set LOCALE=ja
 
