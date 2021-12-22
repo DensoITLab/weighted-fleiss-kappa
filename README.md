@@ -57,16 +57,16 @@ The complied JAR file is provided: [iaa-1.0.0.jar](https://github.com/htsukahara
         - poi-ooxml-lite-5.1.0.jar
         - lib/commons-collections4-4.4.jar
         - lib/commons-io-2.11.0.jar
-        - lib/log4j-api-2.16.0.jar
+        - lib/log4j-api-2.17.0.jar
         - ooxml-lib/commons-compress-1.21.jar
         - ooxml-lib/commons-logging-1.2.jar
         - ooxml-lib/curvesapi-1.06.jar
         - ooxml-lib/xmlbeans-5.0.2.jar
 
-    1. Log4j Core - https://logging.apache.org/log4j/2.x/log4j-core/
+    1. Log4j 2 - https://logging.apache.org/log4j/2.x/index.html
         
-        Downloiad the latest(2.16.0 or above) binary distribution, expand it and place following JAR files under jar/log4j:
-        - log4j-core-2.16.0.jar
+        Downloiad the latest(2.17.0 or above) binary distribution, expand it and place following JAR files under jar/log4j:
+        - log4j-api-2.17.0.jar
 
 # Reference
 1. Ryuichiro Higashinaka, Masahiro Araki, Hiroshi Tsukahara and Masahiro Mizukami (2021),  [*Integrated taxonomy of errors in chat-oriented dialogue systems*](https://aclanthology.org/2021.sigdial-1.10/), in Proceedings of the 22nd Annual Meeting of the Special Interest Group on Discourse and Dialogue, p.89-98.
