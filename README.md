@@ -57,7 +57,6 @@ The complied JAR file is provided: [iaa-1.0.0.jar](https://github.com/htsukahara
         - poi-ooxml-lite-5.1.0.jar
         - lib/commons-collections4-4.4.jar
         - lib/commons-io-2.11.0.jar
-        - lib/log4j-api-2.17.0.jar
         - ooxml-lib/commons-compress-1.21.jar
         - ooxml-lib/commons-logging-1.2.jar
         - ooxml-lib/curvesapi-1.06.jar
